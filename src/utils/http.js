@@ -25,7 +25,7 @@ service.interceptors.response.use(function (response) {
   // 对响应数据做点什么
   const res = response.data
 
-  if (res.code === '0002') {
+  if (res.code && res.code === '0002') {
     MessageBox.confirm('登录过期，请重新登录！', '提示', {
       confirmButtonText: '去登陆',
       cancelButtonText: '取消'
@@ -33,10 +33,11 @@ service.interceptors.response.use(function (response) {
       removeToken()
       location.reload()
     })
-  } else if (res.code !== '0000') {
+  } else if (res.code && res.code !== '0000') {
     Message.error(res.message || 'error')
+  } else {
+    return res
   }
-  return res
 }, function (error) {
   // 对响应错误做点什么
   return Promise.reject(error)
