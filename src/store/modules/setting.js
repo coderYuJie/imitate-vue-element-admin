@@ -1,4 +1,5 @@
 const setting = {
+  namespaced: true,
   state: () => ({
     locale: 'zh'
   }),

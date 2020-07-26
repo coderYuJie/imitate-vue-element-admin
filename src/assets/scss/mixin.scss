@@ -1,0 +1,13 @@
+@mixin box-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+@mixin box-center-y($position) {
+  position: absolute;
+  top: 50%;
+  #{$position}: 0;
+  transform: translateY(-50%);
+}

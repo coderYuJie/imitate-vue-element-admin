@@ -12,7 +12,7 @@ const service = axios.create({
 service.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么
   if (store.state.user.token) {
-    config.headers['X-Token'] = getToken()
+    config.headers.token = getToken()
   }
   return config
 }, function (error) {

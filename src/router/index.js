@@ -8,7 +8,7 @@ import tableRouter from './modules/table'
 Vue.use(VueRouter)
 
 // 无需验证权限的路由
-const constantRoutes = [
+export const constantRoutes = [
   // 404
   {
     path: '/404',
@@ -31,7 +31,10 @@ const constantRoutes = [
   // 首页
   {
     path: '/',
-    redirect: '/dashboard',
+    redirect: '/dashboard'
+  },
+  {
+    path: '/dashboard',
     component: Layout,
     children: [
       {
@@ -141,6 +144,9 @@ export const asyncRoutes = [
   {
     path: '/icon',
     component: Layout,
+    meta: {
+      roles: ['admin', 'editor']
+    },
     children: [
       {
         path: 'index',
@@ -265,6 +271,7 @@ export const asyncRoutes = [
     path: '/excel',
     name: 'Excel',
     component: Layout,
+    redirect: '/excel/export-excel',
     meta: {
       title: 'excel',
       icon: ''
@@ -392,6 +399,10 @@ export const asyncRoutes = [
         }
       }
     ]
+  },
+  {
+    path: '*',
+    redirect: '/404'
   }
 ]
 

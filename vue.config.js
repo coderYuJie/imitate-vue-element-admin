@@ -5,7 +5,7 @@ function resolve (dir) {
 }
 module.exports = {
   devServer: {
-    port: 8080,
+    port: 8888,
     hot: true,
     open: true,
     proxy: {
@@ -35,5 +35,16 @@ module.exports = {
         symbolId: 'icon-[name]'
       })
       .end()
+  },
+  // 配置scss全局变量
+  css: {
+    loaderOptions: {
+      sass: {
+        prependData: `
+        @import"@/assets/scss/var.scss";
+        @import"@/assets/scss/mixin.scss";
+        `
+      }
+    }
   }
 }
