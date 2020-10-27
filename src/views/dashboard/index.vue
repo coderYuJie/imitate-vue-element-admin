@@ -1,6 +1,9 @@
 <template>
   <div class="dashboard">
     dashboard
+    <el-input></el-input>
+    <el-input></el-input>
+    <el-input></el-input>
   </div>
 </template>
 

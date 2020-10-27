@@ -7,5 +7,8 @@ export default {
     login: '登录',
     other: '第三方登录',
     otherTip: '本地不能模拟，请结合自己业务进行模拟！！！'
+  },
+  routes: {
+    dashboard: '首页'
   }
 }

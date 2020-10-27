@@ -5,8 +5,12 @@ import Layout from '@/components/layout'
 const chartsRouter = {
   path: '/charts',
   component: Layout,
+  meta: {
+    title: '图表',
+    icon: 'icon'
+  },
   name: 'Charts',
-  chlidren: [
+  children: [
     {
       path: 'keyboard',
       name: 'KeyboardChart',

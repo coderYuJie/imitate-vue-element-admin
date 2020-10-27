@@ -5,27 +5,22 @@ import store from './store'
 import i18n from './lang/index'
 import '@/router/verify.js'// 路由拦截
 import '@/components/svg-icon'
-import { Message, MessageBox, Form, FormItem, Input, Button, Dropdown, DropdownItem, DropdownMenu, Icon, Dialog } from 'element-ui'
+import Element from 'element-ui'
 
 import './assets/scss/reset.scss'
-
+import Router from 'vue-router'
+import { getSize } from './utils/size'
+Vue.config.devtools = true
+// 解决路由重定向报错
 Vue.config.productionTip = false
+const routerPush = Router.prototype.push
+Router.prototype.push = function push (location) {
+  return routerPush.call(this, location).catch(error => error)
+}
 
-Vue.use(Form)
-Vue.use(FormItem)
-Vue.use(Input)
-Vue.use(Button)
-Vue.use(Dropdown)
-Vue.use(DropdownItem)
-Vue.use(DropdownMenu)
-Vue.use(Icon)
-Vue.use(Dialog)
-
-Vue.prototype.$msgbox = MessageBox
-Vue.prototype.$alert = MessageBox.alert
-Vue.prototype.$confirm = MessageBox.confirm
-Vue.prototype.$prompt = MessageBox.prompt
-Vue.prototype.$message = Message
+Vue.use(Element, {
+  size: getSize() || 'medium'
+})
 
 new Vue({
   router,

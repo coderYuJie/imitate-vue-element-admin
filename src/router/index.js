@@ -31,7 +31,8 @@ export const constantRoutes = [
   // 首页
   {
     path: '/',
-    redirect: '/dashboard'
+    redirect: '/dashboard',
+    hidden: true
   },
   {
     path: '/dashboard',
@@ -42,7 +43,8 @@ export const constantRoutes = [
         name: 'Dashboard',
         component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard'),
         meta: {
-          title: '首页'
+          title: '首页',
+          icon: 'dashboard'
         }
       }
     ]
@@ -58,7 +60,8 @@ export const constantRoutes = [
         name: 'Documentation',
         component: () => import(/* webpackChunkName: "documentation" */ '@/views/documentation'),
         meta: {
-          title: '文档'
+          title: '文档',
+          icon: 'documentation'
         }
       }
     ]
@@ -74,7 +77,8 @@ export const constantRoutes = [
         name: 'Guide',
         component: () => import(/* webpackChunkName: "guide" */ '@/views/guide'),
         meta: {
-          title: '引导页'
+          title: '引导页',
+          icon: 'guide'
         }
       }
     ]
@@ -107,8 +111,8 @@ export const asyncRoutes = [
     redirect: '/permission/page',
     name: 'Permission',
     meta: {
-      title: 'permission',
-      icon: '',
+      title: '权限测试页',
+      icon: 'lock',
       roles: ['admin', 'editor']
     },
     children: [
@@ -154,7 +158,7 @@ export const asyncRoutes = [
         component: () => import(/* webpackChunkName: "icon" */ '@/views/icons/index'),
         meta: {
           title: '图标',
-          icon: '',
+          icon: 'icon',
           noCache: true
         }
       }
@@ -173,7 +177,7 @@ export const asyncRoutes = [
     component: Layout,
     meta: {
       title: 'example',
-      icon: ''
+      icon: 'icon'
     },
     children: [
       {
@@ -181,8 +185,7 @@ export const asyncRoutes = [
         name: 'CreateArticle',
         component: () => import(/* webpackChunkName: "example" */ '@/views/example/create'),
         meta: {
-          title: 'createArticle',
-          icon: ''
+          title: 'createArticle'
         }
       },
       {
@@ -218,7 +221,7 @@ export const asyncRoutes = [
         component: () => import(/* webpackChunkName: "tab" */ '@/views/tab/index'),
         meta: {
           title: 'tab',
-          icon: ''
+          icon: 'icon'
         }
       }
     ]
@@ -230,7 +233,7 @@ export const asyncRoutes = [
     name: 'ErrorPages',
     meta: {
       title: 'errorPages',
-      icon: ''
+      icon: 'icon'
     },
     children: [
       {
@@ -255,13 +258,14 @@ export const asyncRoutes = [
   {
     path: '/error-log',
     component: Layout,
-    chlidren: [
+    children: [
       {
         path: 'log',
         name: 'ErrorLog',
         component: () => import(/* webpackChunkName: "errorLog" */ '@/views/error-log/index'),
         meta: {
-          title: 'errorLog'
+          title: 'errorLog',
+          icon: 'icon'
         }
       }
     ]
@@ -274,7 +278,7 @@ export const asyncRoutes = [
     redirect: '/excel/export-excel',
     meta: {
       title: 'excel',
-      icon: ''
+      icon: 'icon'
     },
     children: [
       {
@@ -317,17 +321,14 @@ export const asyncRoutes = [
     name: 'Zip',
     component: Layout,
     redirect: '/zip/download',
-    meta: {
-      title: 'zip',
-      icon: ''
-    },
     children: [
       {
         path: 'download',
         name: 'ExportZip',
         component: () => import(/* webpackChunkName: "zip" */ '@/views/zip/index'),
         meta: {
-          title: 'exportZip'
+          title: 'exportZip',
+          icon: 'icon'
         }
       }
     ]
@@ -344,7 +345,7 @@ export const asyncRoutes = [
         component: () => import(/* webpackChunkName: "pdf" */ '@/views/pdf/index'),
         meta: {
           title: 'pdf',
-          icon: ''
+          icon: 'icon'
         }
       }
     ]
@@ -361,7 +362,7 @@ export const asyncRoutes = [
         component: () => import(/* webpackChunkName: "theme" */ '@/views/theme/index'),
         meta: {
           title: 'theme',
-          icon: ''
+          icon: 'icon'
         }
       }
     ]
@@ -378,7 +379,7 @@ export const asyncRoutes = [
         component: () => import(/* webpackChunkName: "clipboard" */ '@/views/clipboard/index'),
         meta: {
           title: 'clipboard',
-          icon: ''
+          icon: 'icon'
         }
       }
     ]
@@ -395,15 +396,16 @@ export const asyncRoutes = [
         component: () => import(/* webpackChunkName: "i18n" */ '@/views/i18n/index'),
         meta: {
           title: 'i18n',
-          icon: ''
+          icon: 'icon'
         }
       }
     ]
-  },
-  {
-    path: '*',
-    redirect: '/404'
   }
+  // {
+  //   path: '*',
+  //   redirect: '/404',
+  //   hidden: true
+  // }
 ]
 
 const createRouter = () => new VueRouter({

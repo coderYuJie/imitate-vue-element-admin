@@ -8,7 +8,7 @@ const tableRouter = {
   component: Layout,
   meta: {
     title: 'table',
-    icon: ''
+    icon: 'icon'
   },
   children: [
     {

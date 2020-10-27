@@ -6,6 +6,10 @@ const componentsRouter = {
   path: '/components',
   name: 'ComponentDemo',
   components: Layout,
+  meta: {
+    title: '组件',
+    icon: 'icon'
+  },
   children: [
     // 富文本编辑器
     {

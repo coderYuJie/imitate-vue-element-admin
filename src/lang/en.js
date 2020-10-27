@@ -7,5 +7,8 @@ export default {
     login: 'Login',
     other: 'Or connect with',
     otherTip: 'Can not be simulated on local, so please combine you own business simulation! ! !'
+  },
+  routes: {
+    dashboard: 'dashboard'
   }
 }
