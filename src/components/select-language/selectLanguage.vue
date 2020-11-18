@@ -23,6 +23,7 @@ export default {
     changeLang (lang) {
       this.$i18n.locale = lang
       this.$store.dispatch('setting/setLocale', lang)
+      this.$message.success(this.$t('tips.selectLang'))
     }
   }
 }

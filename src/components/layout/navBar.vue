@@ -4,13 +4,17 @@
       <span :class="{'el-icon-s-fold': !isCollapse,'el-icon-s-unfold': isCollapse}" @click="toggle"></span>
     </div>
     <el-breadcrumb separator="/">
-      <el-breadcrumb-item :to="{ path: '/' }">{{ $t('routes.dashboard') }}</el-breadcrumb-item>
-      <el-breadcrumb-item>活动管理</el-breadcrumb-item>
+      <el-breadcrumb-item
+      v-for="(item,index) in breadcrumbList"
+      :key="item.path">
+        <span v-if="index === (breadcrumbList.length - 1)">{{generateTitle(item.meta.title)}}</span>
+        <router-link v-else :to="{path: item.path}">{{generateTitle(item.meta.title)}}</router-link>
+      </el-breadcrumb-item>
     </el-breadcrumb>
     <div class="right-menu">
       <div class="search" @click="showSearchInput"><svg-icon icon="search"></svg-icon></div>
       <el-input ref="searchInp" :class="{'show-input': searchInput}" v-model="queryKey" type="text" placeholder="Search" size="small"></el-input>
-      <div class="fullscreen"><svg-icon icon="fullscreen"/></div>
+      <div @click="fullScreen" class="fullscreen"><svg-icon icon="fullscreen"/></div>
        <el-tooltip class="item" effect="dark" content="布局大小" placement="bottom">
          <select-size></select-size>
       </el-tooltip>
@@ -19,14 +23,13 @@
         @command="handleCommand"
         trigger="click">
           <span class="el-dropdown-link">
-            <el-avatar :size="40" src="circleUrl"></el-avatar>
+            <el-avatar :size="40" :src="avatar"></el-avatar>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="a">个人中心</el-dropdown-item>
-            <el-dropdown-item command="b">首页</el-dropdown-item>
-            <el-dropdown-item command="c">项目地址</el-dropdown-item>
-            <el-dropdown-item command="d">Docs</el-dropdown-item>
-            <el-dropdown-item command="e">退出登录</el-dropdown-item>
+            <el-dropdown-item command="personal">个人中心</el-dropdown-item>
+            <el-dropdown-item command="dashboard">首页</el-dropdown-item>
+            <el-dropdown-item command="address">项目地址</el-dropdown-item>
+            <el-dropdown-item command="logOut">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
     </div>
@@ -37,6 +40,8 @@
 import selectLanguage from '../select-language/selectLanguage'
 import svgIcon from '../svg-icon/svgIcon'
 import selectSize from '../select-size/index'
+import generateTitle from '@/utils/i18n'
+
 export default {
   name: 'navBar',
   components: {
@@ -53,19 +58,102 @@ export default {
   data () {
     return {
       searchInput: false,
-      queryKey: ''
+      queryKey: '',
+      breadcrumbList: []
+    }
+  },
+  created () {
+    this.getBreadcrumbList()
+  },
+  computed: {
+    avatar () {
+      return this.$store.state.user.avatar
     }
   },
   methods: {
+    generateTitle,
     toggle () {
       this.$emit('toggle', !this.isCollapse)
     },
-    handleCommand () {
-
+    handleCommand (val) {
+      console.log(val)
+      if (val === 'personal') {
+        this.$router.push('/personal')
+      } else if (val === 'dashboard') {
+        this.$router.push('/dashboard')
+      } else if (val === 'address') {
+        window.open('https://github.com/coderYuJie/imitate-vue-element-admin')
+      } else if (val === 'logOut') {
+        this.logOut()
+      }
     },
     showSearchInput () {
       this.searchInput = !this.searchInput
       this.$refs.searchInp.focus()
+    },
+    // 全屏
+    fullScreen () {
+      var iFullscreen = false // 当前是否全屏状态
+      var fullscreenEnabled = document.fullscreenEnabled ||
+      document.mozFullScreenEnabled ||
+      document.webkitFullscreenEnabled ||
+      document.msFullscreenEnabled
+
+      if (fullscreenEnabled) {
+        const de = document.documentElement
+        if (iFullscreen) {
+          // 关闭全屏
+          if (document.exitFullscreen) {
+            document.exitFullscreen()
+          } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen()
+          } else if (document.webkitCancelFullScreen) {
+            document.webkitCancelFullScreen()
+          }
+        } else {
+          // 打开全屏
+          if (de.requestFullscreen) {
+            de.requestFullscreen()
+          } else if (de.mozRequestFullScreen) {
+            de.mozRequestFullScreen()
+          } else if (de.webkitRequestFullScreen) {
+            de.webkitRequestFullScreen()
+          }
+        }
+      } else {
+        alert('浏览器当前不能全屏')
+      }
+    },
+    getBreadcrumbList () {
+      const matched = this.$route.matched.filter(item => item.meta && item.meta.title)
+      const first = matched[0]
+      if (!this.isDashboard(first)) {
+        matched.unshift({
+          path: '/dashboard',
+          name: 'Dashboard',
+          meta: {
+            title: 'dashboard',
+            icon: 'dashboard'
+          }
+        })
+      }
+      this.breadcrumbList = matched.filter(item => item.meta && item.meta.title && item.meta.breadcrumb !== false)
+    },
+    isDashboard (route) {
+      if (route && route.name && route.name === 'Dashboard') {
+        return true
+      }
+      return false
+    },
+    logOut () {
+      this.$store.dispatch('user/logOut').then(() => {
+        this.$router.push('/login')
+      })
+    }
+  },
+  watch: {
+    $route (route) {
+      this.getBreadcrumbList()
     }
   }
 }

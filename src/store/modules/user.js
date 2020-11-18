@@ -1,4 +1,4 @@
-import { getToken, setToken } from '@/utils/auth'
+import { getToken, setToken, removeToken } from '@/utils/auth'
 import { login, userInfo } from '@/api/user'
 
 const user = {
@@ -25,6 +25,9 @@ const user = {
     },
     SET_INTRODUCTION (state, introduction) {
       state.introduction = introduction
+    },
+    REMOVE_TOKEN () {
+      removeToken('token')
     }
   },
   actions: {
@@ -53,6 +56,12 @@ const user = {
           commit('SET_INTRODUCTION', introduction)
           resolve(data)
         })
+      })
+    },
+    logOut ({ commit }) {
+      return new Promise(resolve => {
+        commit('REMOVE_TOKEN')
+        resolve()
       })
     }
   },

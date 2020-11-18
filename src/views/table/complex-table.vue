@@ -1,11 +1,10 @@
 <template>
-  <div class="documentation">documentation</div>
+  <div class="complex-table">complex-table</div>
 </template>
 
 <script>
 export default {
-  mounted () {
-  }
+
 }
 </script>
 

@@ -16,5 +16,7 @@ export default {
 </script>
 
 <style>
-
+.dashboard {
+  height: 1000px;
+}
 </style>

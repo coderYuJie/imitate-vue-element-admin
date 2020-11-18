@@ -8,7 +8,7 @@ const tableRouter = {
   component: Layout,
   meta: {
     title: 'table',
-    icon: 'icon'
+    icon: 'table'
   },
   children: [
     {
@@ -33,6 +33,14 @@ const tableRouter = {
       component: () => import(/* webpackChunkName: "table" */ '@/views/table/inline-edit-table'),
       meta: {
         title: 'inlineEditTable'
+      }
+    },
+    {
+      path: 'complex-table',
+      name: 'Complextable',
+      component: () => import(/* webpackChunkName: "table" */ '@/views/table/complex-table'),
+      meta: {
+        title: 'complexTable'
       }
     }
   ]

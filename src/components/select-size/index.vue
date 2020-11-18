@@ -34,7 +34,7 @@ export default {
     refreshView () {
       // const route = this.$route.fullPath
       this.$nextTick(() => {
-        location.reload()
+        this.$router.replace('/redirect' + this.$route.path)
       })
     }
   }

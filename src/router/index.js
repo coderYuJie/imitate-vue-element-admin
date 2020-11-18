@@ -7,8 +7,26 @@ import tableRouter from './modules/table'
 
 Vue.use(VueRouter)
 
+/*
+  meta: {
+    breadcrumb: false   // 当值为false时，将不在面包屑导航中渲染，反之则在面包屑中渲染  默认为true
+    affix   当值为true时 该会固定展示在面包屑中
+    noCache 当值为true时  该组件不会被缓存
+  }
+*/
 // 无需验证权限的路由
 export const constantRoutes = [
+  {
+    path: '/redirect',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: '/redirect/:path(.*)',
+        component: () => import('@/views/redirect/index.vue')
+      }
+    ]
+  },
   // 404
   {
     path: '/404',
@@ -43,8 +61,9 @@ export const constantRoutes = [
         name: 'Dashboard',
         component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard'),
         meta: {
-          title: '首页',
-          icon: 'dashboard'
+          title: 'dashboard',
+          icon: 'dashboard',
+          affix: true
         }
       }
     ]
@@ -60,8 +79,9 @@ export const constantRoutes = [
         name: 'Documentation',
         component: () => import(/* webpackChunkName: "documentation" */ '@/views/documentation'),
         meta: {
-          title: '文档',
-          icon: 'documentation'
+          title: 'documentation',
+          icon: 'documentation',
+          affix: true
         }
       }
     ]
@@ -77,7 +97,7 @@ export const constantRoutes = [
         name: 'Guide',
         component: () => import(/* webpackChunkName: "guide" */ '@/views/guide'),
         meta: {
-          title: '引导页',
+          title: 'guide',
           icon: 'guide'
         }
       }
@@ -111,7 +131,7 @@ export const asyncRoutes = [
     redirect: '/permission/page',
     name: 'Permission',
     meta: {
-      title: '权限测试页',
+      title: 'permission',
       icon: 'lock',
       roles: ['admin', 'editor']
     },
@@ -121,7 +141,7 @@ export const asyncRoutes = [
         name: 'PagePermission',
         component: () => import(/* webpackChunkName: "permission" */ '@/views/permission/page'),
         meta: {
-          title: '页面权限',
+          title: 'pagePermission',
           roles: ['admin']
         }
       },
@@ -130,7 +150,7 @@ export const asyncRoutes = [
         name: 'DirectivePermission',
         component: () => import(/* webpackChunkName: "permission" */ '@/views/permission/directive'),
         meta: {
-          title: '指令权限'
+          title: 'directivePermission'
         }
       },
       {
@@ -138,7 +158,7 @@ export const asyncRoutes = [
         name: 'RolePermission',
         component: () => import(/* webpackChunkName: "permission" */ '@/views/permission/role'),
         meta: {
-          title: '角色权限',
+          title: 'rolePermission',
           roles: ['admin']
         }
       }
@@ -157,7 +177,7 @@ export const asyncRoutes = [
         name: 'Icons',
         component: () => import(/* webpackChunkName: "icon" */ '@/views/icons/index'),
         meta: {
-          title: '图标',
+          title: 'icon',
           icon: 'icon',
           noCache: true
         }
@@ -177,7 +197,7 @@ export const asyncRoutes = [
     component: Layout,
     meta: {
       title: 'example',
-      icon: 'icon'
+      icon: 'example'
     },
     children: [
       {
@@ -221,7 +241,7 @@ export const asyncRoutes = [
         component: () => import(/* webpackChunkName: "tab" */ '@/views/tab/index'),
         meta: {
           title: 'tab',
-          icon: 'icon'
+          icon: 'tab'
         }
       }
     ]
@@ -233,7 +253,7 @@ export const asyncRoutes = [
     name: 'ErrorPages',
     meta: {
       title: 'errorPages',
-      icon: 'icon'
+      icon: '404'
     },
     children: [
       {
@@ -265,7 +285,7 @@ export const asyncRoutes = [
         component: () => import(/* webpackChunkName: "errorLog" */ '@/views/error-log/index'),
         meta: {
           title: 'errorLog',
-          icon: 'icon'
+          icon: 'bug'
         }
       }
     ]
@@ -278,7 +298,7 @@ export const asyncRoutes = [
     redirect: '/excel/export-excel',
     meta: {
       title: 'excel',
-      icon: 'icon'
+      icon: 'excel'
     },
     children: [
       {
@@ -327,8 +347,8 @@ export const asyncRoutes = [
         name: 'ExportZip',
         component: () => import(/* webpackChunkName: "zip" */ '@/views/zip/index'),
         meta: {
-          title: 'exportZip',
-          icon: 'icon'
+          title: 'zip',
+          icon: 'zip'
         }
       }
     ]
@@ -345,7 +365,7 @@ export const asyncRoutes = [
         component: () => import(/* webpackChunkName: "pdf" */ '@/views/pdf/index'),
         meta: {
           title: 'pdf',
-          icon: 'icon'
+          icon: 'pdf'
         }
       }
     ]
@@ -362,7 +382,7 @@ export const asyncRoutes = [
         component: () => import(/* webpackChunkName: "theme" */ '@/views/theme/index'),
         meta: {
           title: 'theme',
-          icon: 'icon'
+          icon: 'theme'
         }
       }
     ]
@@ -379,7 +399,7 @@ export const asyncRoutes = [
         component: () => import(/* webpackChunkName: "clipboard" */ '@/views/clipboard/index'),
         meta: {
           title: 'clipboard',
-          icon: 'icon'
+          icon: 'clipboard'
         }
       }
     ]
@@ -396,16 +416,16 @@ export const asyncRoutes = [
         component: () => import(/* webpackChunkName: "i18n" */ '@/views/i18n/index'),
         meta: {
           title: 'i18n',
-          icon: 'icon'
+          icon: 'international'
         }
       }
     ]
+  },
+  {
+    path: '*',
+    redirect: '/404',
+    hidden: true
   }
-  // {
-  //   path: '*',
-  //   redirect: '/404',
-  //   hidden: true
-  // }
 ]
 
 const createRouter = () => new VueRouter({

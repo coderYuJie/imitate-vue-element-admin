@@ -5,10 +5,10 @@ import Layout from '@/components/layout'
 const componentsRouter = {
   path: '/components',
   name: 'ComponentDemo',
-  components: Layout,
+  component: Layout,
   meta: {
-    title: '组件',
-    icon: 'icon'
+    title: 'component',
+    icon: 'component'
   },
   children: [
     // 富文本编辑器

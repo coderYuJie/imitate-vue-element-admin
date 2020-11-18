@@ -6,8 +6,8 @@ const chartsRouter = {
   path: '/charts',
   component: Layout,
   meta: {
-    title: '图表',
-    icon: 'icon'
+    title: 'chart',
+    icon: 'chart'
   },
   name: 'Charts',
   children: [
